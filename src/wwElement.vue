@@ -13,7 +13,7 @@
           selected-class="selected-chip"
           size="large"
           filter
-          filter-icon="$account"
+          filter-icon="custom:CustomIconCheckmark"
           variant="outlined"
         >
           {{option.label.en}}
@@ -24,6 +24,7 @@
 
 <script>
 import { ref, computed, getCurrentInstance, watch, toRefs } from 'vue';
+import { customSVGs } from './customSvgs'
 import { VChip } from 'vuetify/components/VChip';
 import { VChipGroup } from 'vuetify/components/VChipGroup';
 import { createVuetify } from 'vuetify'
@@ -57,6 +58,7 @@ export default {
         },
         sets: {
           mdi,
+          custom: customSVGs,
         },
       },
     })
@@ -103,6 +105,7 @@ export default {
   background: linear-gradient(90deg,#ef407c, #f2736c);
 }
 .v-chip:not(.selected-chip) {
+  border: 0;
   color: black;
   background: white;
 }
