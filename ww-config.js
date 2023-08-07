@@ -46,5 +46,18 @@ properties: {
         },
         /* wwEditor:end */
     },
+    limit: {
+        type: 'Number',
+        label: {
+            en: 'Limit',
+            fr: 'Limite',
+        },
+        options: {
+            min: 0,
+            step: 1,
+        },
+        defaultValue: 5,
+        section: 'settings',
+    },
 },
 };

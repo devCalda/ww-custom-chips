@@ -1,10 +1,10 @@
 <template>
   <div class="my-element">
-    <p>Hello"</p>
     <v-chip-group
         v-model="internalStateModel"
         column
         multiple
+        :max="limitRef"
       >
         <v-chip
           v-for="(option, i) in initialOptions"
@@ -38,7 +38,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    const { options: optionsRef } = toRefs(props.content);
+    const { options: optionsRef, limit: limitRef } = toRefs(props.content);
     const app = getCurrentInstance()
 
     const vuetify = createVuetify({
@@ -90,6 +90,7 @@ export default {
     return {
       initialOptions,
       internalStateModel,
+      limitRef
     };
   },
 };
