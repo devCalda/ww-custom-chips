@@ -59,5 +59,21 @@ properties: {
         defaultValue: 5,
         section: 'settings',
     },
+    gradientColor1: {
+        label: {
+            en: 'Gradient color 1',
+        },
+        type: 'Color',
+        section: 'settings',
+        defaultValue: '#ef407c',
+    },
+    gradientColor2: {
+        label: {
+            en: 'Gradient color 2',
+        },
+        type: 'Color',
+        section: 'settings',
+        defaultValue: '#f2736c',
+    },
 },
 };

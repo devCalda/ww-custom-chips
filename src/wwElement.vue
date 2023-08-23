@@ -39,7 +39,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    const { options: optionsRef, limit: limitRef } = toRefs(props.content);
+    const { options: optionsRef, limit: limitRef, gradientColor1, gradientColor2 } = toRefs(props.content);
     const app = getCurrentInstance()
 
     const vuetify = createVuetify({
@@ -92,7 +92,9 @@ export default {
     return {
       initialOptions,
       internalStateModel,
-      limitRef
+      limitRef,
+      gradientColor1,
+      gradientColor2
     };
   },
 };
@@ -102,7 +104,7 @@ export default {
 .selected-chip {
   border: 0;
   color: white;
-  background: linear-gradient(90deg,#ef407c, #f2736c);
+  background: linear-gradient(90deg,v-bind(gradientColor1), v-bind(gradientColor2));
 }
 .v-chip:not(.selected-chip) {
   border: 0;
