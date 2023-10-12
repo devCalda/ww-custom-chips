@@ -75,5 +75,29 @@ properties: {
         section: 'settings',
         defaultValue: '#f2736c',
     },
+    backgroundColor: {
+        label: {
+            en: 'Background color unselected',
+        },
+        type: 'Color',
+        section: 'settings',
+        defaultValue: '#ffffff',
+    },
+    colorText: {
+        label: {
+            en: 'Text color unselected',
+        },
+        type: 'Color',
+        section: 'settings',
+        defaultValue: '#000000',
+    },
+    colorTextSelected: {
+        label: {
+            en: 'Text color selected',
+        },
+        type: 'Color',
+        section: 'settings',
+        defaultValue: '#ffffff',
+    },
 },
 };
