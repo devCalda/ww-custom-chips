@@ -46,6 +46,26 @@ properties: {
         },
         /* wwEditor:end */
     },
+    initialValue: {
+        label: { en: 'Initial value', fr: 'Initial value' },
+        type: 'Array',
+        section: 'settings',
+        options: {
+            item: {
+                type: 'Text',
+                defaultValue: "",
+            },
+        },
+        defaultValue: [],
+        bindable: true,
+        /* wwEditor:start */
+        bindingValidation: {
+            type: 'array',
+            tooltip:
+                'A collection of data in array format: \n\n `[{}, {}, ...] || ["string1", "string2", ...] || [1, 2, ...]`',
+        },
+        /* wwEditor:end */
+    },
     limit: {
         type: 'Number',
         label: {

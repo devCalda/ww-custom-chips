@@ -39,7 +39,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    const { options: optionsRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected } = toRefs(props.content);
+    const { options: optionsRef, initialValue: initialValueRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected } = toRefs(props.content);
     const app = getCurrentInstance()
 
     const vuetify = createVuetify({
@@ -68,13 +68,16 @@ export default {
     watch(optionsRef, async (newOptions, oldOptions) => {
         initialOptions.value = Array.isArray(newOptions) ? [...newOptions] : [];
     })
+    watch(initialValueRef, async (newInitValue, oldOptions) => {
+        internalState.value = newInitValue;
+    })
 
     const emitChangeEvent = (newValue) => {
       const eventPayload = { name: 'change', event: { domEvent: {}, value: newValue } };
       emit('trigger-event', eventPayload);
     };
 
-    const internalState = ref([]);
+    const internalState = ref(initialValueRef.value);
 
     // Create a computed property with a getter and setter
     const internalStateModel = computed({
