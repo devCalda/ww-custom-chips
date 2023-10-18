@@ -3,7 +3,7 @@
     <v-chip-group
         v-model="internalStateModel"
         column
-        multiple
+        :multiple="isMultipleAllowed"
         :max="limitRef"
       >
         <v-chip
@@ -12,7 +12,7 @@
           :value="option.value"
           selected-class="selected-chip"
           size="large"
-          filter
+          :filter="showSelectedIcon"
           filter-icon="custom:CustomIconCheckmark"
           variant="outlined"
         >
@@ -39,7 +39,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    const { options: optionsRef, initialValue: initialValueRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected } = toRefs(props.content);
+    const { options: optionsRef, initialValue: initialValueRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected, showSelectedIcon, isMultipleAllowed } = toRefs(props.content);
     const app = getCurrentInstance()
 
     const vuetify = createVuetify({
@@ -100,7 +100,9 @@ export default {
       gradientColor2,
       backgroundColor,
       colorTextSelected,
-      colorText
+      colorText,
+      showSelectedIcon,
+      isMultipleAllowed
     };
   },
 };

@@ -66,6 +66,22 @@ properties: {
         },
         /* wwEditor:end */
     },
+    showSelectedIcon:{
+        type: "OnOff",
+        section: 'settings',
+        label: {
+            en: "Show selected icon",
+            fr: "Show selected icon"
+        }
+    },
+    isMultipleAllowed:{
+        type: "OnOff",
+        section: 'settings',
+        label: {
+            en: "Allow multiple selection",
+            fr: "Allow multiple selection"
+        }
+    },
     limit: {
         type: 'Number',
         label: {
