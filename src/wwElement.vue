@@ -9,6 +9,7 @@
         <v-chip
           v-for="(option, i) in initialOptions"
           :key="i"
+          :disabled="isReadOnly"
           :value="option.value"
           selected-class="selected-chip"
           size="large"
@@ -39,7 +40,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    const { options: optionsRef, initialValue: initialValueRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected, showSelectedIcon, isMultipleAllowed } = toRefs(props.content);
+    const { options: optionsRef, initialValue: initialValueRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected, showSelectedIcon, isMultipleAllowed, isReadOnly } = toRefs(props.content);
     const app = getCurrentInstance()
 
     const vuetify = createVuetify({
@@ -102,7 +103,8 @@ export default {
       colorTextSelected,
       colorText,
       showSelectedIcon,
-      isMultipleAllowed
+      isMultipleAllowed,
+      isReadOnly
     };
   },
 };

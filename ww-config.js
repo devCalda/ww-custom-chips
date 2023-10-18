@@ -74,6 +74,14 @@ properties: {
             fr: "Show selected icon"
         }
     },
+    isReadOnly:{
+        type: "OnOff",
+        section: 'settings',
+        label: {
+            en: "Is read only?",
+            fr: "Is read only"
+        }
+    },
     isMultipleAllowed:{
         type: "OnOff",
         section: 'settings',
