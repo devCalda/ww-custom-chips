@@ -46,6 +46,7 @@ properties: {
         },
         /* wwEditor:end */
     },
+    
     initialValue: {
         label: { en: 'Initial value', fr: 'Initial value' },
         type: 'Array',
@@ -66,12 +67,67 @@ properties: {
         },
         /* wwEditor:end */
     },
+    extraOptions: {
+        label: { en: 'Extra options for dropdown' },
+        type: 'Array',
+        section: 'settings',
+        options: {
+            item: {
+                type: 'Object',
+                defaultValue: { label: 'New option', value: '' },
+                options: {
+                    item: {
+                        label: {
+                            label: { en: 'Label' },
+                            type: 'Text',
+                            options: { placeholder: 'Label' },
+                            multiLang: true,
+                        },
+                        value: {
+                            label: { en: 'Value' },
+                            type: 'Text',
+                            options: { placeholder: 'Value' },
+                        },
+                    },
+                },
+            },
+        },
+        defaultValue: [
+            /*{ value: 'option3', label: { en: 'option - 3' } },
+            { value: 'option4', label: { en: 'option - 4' } },*/
+        ],
+        bindable: true,
+        /* wwEditor:start */
+        bindingValidation: {
+            type: 'array',
+            tooltip:
+                'A collection of data in array format: \n\n `[{}, {}, ...] || ["string1", "string2", ...] || [1, 2, ...]`',
+        },
+        /* wwEditor:end */
+    },
     showSelectedIcon:{
         type: "OnOff",
         section: 'settings',
         label: {
             en: "Show selected icon",
             fr: "Show selected icon"
+        }
+    },
+    initialDropdownText:{
+        type: "Text",
+        section: 'settings',
+        defaultValue: "Other",
+        label: {
+            en: "initialDropdownText",
+            fr: "initialDropdownText"
+        }
+    },
+    showDropdownIcon:{
+        type: "OnOff",
+        section: 'settings',
+        label: {
+            en: "Show dropdown icon",
+            fr: "Show dropdown icon"
         }
     },
     isReadOnly:{

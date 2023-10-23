@@ -7,7 +7,7 @@
         :max="limitRef"
       >
         <v-chip
-          v-for="(option, i) in initialOptions"
+          v-for="(option, i) in chipOptions"
           :key="i"
           :disabled="isReadOnly"
           :value="option.value"
@@ -19,6 +19,32 @@
         >
           {{option.label.en}}
         </v-chip>
+
+        <v-chip
+          selected-class="selected-chip"
+          :filter="showSelectedIcon"
+          :disabled="isReadOnly"
+          :value="selectValue"
+          variant="outlined"
+          size="large"
+          >
+          <div>
+            <v-select
+                id="customSelect"
+                v-model="selectValueModel"
+                :flat="true"
+                bg-color="transparent"
+                :menu-icon="showDropdownIcon ? '$expand' : 'none'"
+                :items="selectItems"
+                item-title="label.en"
+                item-value="value"
+                variant="solo"
+                :value-comparator="(a,b) => false"
+                @update:menu="menuOpenedChange"
+              >
+              </v-select>
+          </div>
+        </v-chip>
       </v-chip-group>
   </div>
 </template>
@@ -28,6 +54,7 @@ import { ref, computed, getCurrentInstance, watch, toRefs } from 'vue';
 import { customSVGs } from './customSvgs'
 import { VChip } from 'vuetify/components/VChip';
 import { VChipGroup } from 'vuetify/components/VChipGroup';
+import { VSelect } from 'vuetify/components/VSelect';
 import { createVuetify } from 'vuetify'
 import { Ripple } from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -40,13 +67,29 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    const { options: optionsRef, initialValue: initialValueRef, limit: limitRef, gradientColor1, gradientColor2, backgroundColor, colorText, colorTextSelected, showSelectedIcon, isMultipleAllowed, isReadOnly } = toRefs(props.content);
+    const { 
+      options: optionsRef,
+      initialValue: initialValueRef,
+      limit: limitRef,
+      gradientColor1,
+      gradientColor2,
+      backgroundColor,
+      colorText,
+      colorTextSelected,
+      showSelectedIcon,
+      isMultipleAllowed,
+      isReadOnly,
+      extraOptions,
+      showDropdownIcon,
+      initialDropdownText
+       } = toRefs(props.content);
     const app = getCurrentInstance()
 
     const vuetify = createVuetify({
       components: {
         VChipGroup,
         VChip,
+        VSelect
       },
       directives: {
         Ripple,
@@ -65,10 +108,15 @@ export default {
     })
     app.appContext.app.use(vuetify);
     
-    const initialOptions = ref(Array.isArray(props.content.options) ? [...props.content.options] : []);
+    const chipOptions = ref(Array.isArray(props.content.options) ? [...props.content.options] : []);
     watch(optionsRef, async (newOptions, oldOptions) => {
-        initialOptions.value = Array.isArray(newOptions) ? [...newOptions] : [];
+        chipOptions.value = Array.isArray(newOptions) ? [...newOptions] : [];
     })
+    /*watch(extraOptions, async (newOptions, oldOptions) => {
+      console.log(newOptions);
+      /*selectItems.value = [];
+      selectItems.value = Array.isArray(newOptions) ? [...newOptions] : [];
+    })*/
     watch(initialValueRef, async (newInitValue, oldOptions) => {
         internalState.value = newInitValue;
     })
@@ -79,6 +127,17 @@ export default {
     };
 
     const internalState = ref(initialValueRef.value);
+    const selectItems=computed(() => extraOptions.value);//ref(['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming'])
+
+    const selectValue = computed(() => initialDropdownText.value);
+    const selectValueModel = computed({
+      get() {
+        return selectValue.value;
+      },
+      set(newValue) {
+        selectValue.value = newValue;
+      },
+    });
 
     // Create a computed property with a getter and setter
     const internalStateModel = computed({
@@ -88,13 +147,25 @@ export default {
       },
       set(newValue) {
         // Additional processing before setting the value
+        if(!newValue || newValue == "Other"/* || selectItems.value.includes(newValue)*/) return;
+        console.log("emit: ", newValue)
         internalState.value = newValue;
         emitChangeEvent(newValue);
       },
     });
 
+    function menuOpenedChange(isOpened) {
+      if(selectValueModel.value == "Other") return;
+      if(!isOpened) {
+        internalStateModel.value = selectValueModel.value;
+      }
+    }
+
+    const showDropdownIconStyleDisplay = computed(() => showDropdownIcon ? "flex" : "none");
+
+
     return {
-      initialOptions,
+      chipOptions,
       internalStateModel,
       limitRef,
       gradientColor1,
@@ -104,21 +175,51 @@ export default {
       colorText,
       showSelectedIcon,
       isMultipleAllowed,
-      isReadOnly
+      isReadOnly,
+      selectValue,
+      selectValueModel,
+      selectItems,
+      menuOpenedChange,
+      showDropdownIcon,
+      showDropdownIconStyleDisplay
     };
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .selected-chip {
-  border: 0;
-  color: v-bind(colorTextSelected);
-  background: linear-gradient(90deg,v-bind(gradientColor1), v-bind(gradientColor2));
+  border: 0 !important;
+  color: v-bind(colorTextSelected) !important;
+  background: linear-gradient(90deg,v-bind(gradientColor1), v-bind(gradientColor2)) !important;
 }
 .v-chip:not(.selected-chip) {
   border: 0;
   color: v-bind(colorText);
   background: v-bind(backgroundColor);
+}
+#customSelect {
+  border: none;
+}
+/*.v-field--variant-solo {
+  box-shadow: none;
+  background: none;
+  //padding-inline-end: 0 !important;
+}*/
+.v-input__details {
+  display: none;
+}
+.v-field--appended {
+  padding: 0;
+}
+.v-field__append-inner {
+  display: v-bind(showDropdownIconStyleDisplay);
+}
+.v-field__input {
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+.v-menu > .v-overlay__content {
+  border-radius: 16px;
 }
 </style>
