@@ -81,8 +81,7 @@ export default {
       isMultipleAllowed,
       isReadOnly,
       extraOptions,
-      showDropdownIcon,
-      initialDropdownText
+      showDropdownIcon
        } = toRefs(props.content);
     const app = getCurrentInstance()
 
@@ -123,6 +122,7 @@ export default {
     })
 
     const emitChangeEvent = (newValue) => {
+      console.log("emit: ", newValue);
       const eventPayload = { name: 'change', event: { domEvent: {}, value: newValue } };
       emit('trigger-event', eventPayload);
     };
@@ -130,7 +130,7 @@ export default {
     const internalState = ref(initialValueRef.value);
     const selectItems=computed(() => extraOptions.value);//ref(['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming'])
 
-    const selectValue = ref({ value: 'category', label: { en: 'Category' } });
+    const selectValue = ref('Category');
     const selectValueModel = computed({
       get() {
         return selectValue.value;
@@ -148,19 +148,35 @@ export default {
       },
       set(newValue) {
         // Additional processing before setting the value
-        if(!newValue || newValue == "Other"/* || selectItems.value.includes(newValue)*/) return;
-        console.log("emit: ", newValue)
+        if(!newValue || newValue == "Category" || selectItems.value.map(obj => obj.value ?? "").includes(newValue)) return;
         internalState.value = newValue;
+        selectValue.value =  "Category"
         emitChangeEvent(newValue);
       },
     });
 
     function menuOpenedChange(isOpened) {
-      if(selectValueModel.value == "Other") return;
+      if(selectValueModel.value == "Category") return;
       if(!isOpened) {
         console.log("closed modal");
         console.log(selectValueModel.value);
         internalStateModel.value = selectValueModel.value;
+
+        selectValue.value = selectValueModel.value;
+        internalState.value = selectValueModel.value;
+        emitChangeEvent(selectValueModel.value);
+        
+        /*console.log(selectItems.value.indexOf(newValue));
+        if(!selectItems.value.map(obj => obj.value ?? "").includes(newValue.)) {
+          console.log("true");
+          console.log(newValue);
+          selectValueModel.value = { value: 'category', label: { en: 'Category' } }   // When item that not in dropdown selected, display Category
+        } else {
+          console.log("false");
+          console.log(newValue);
+          selectValueModel.value = newValue;
+        }
+        */
       }
     }
 
