@@ -21,6 +21,7 @@
         </v-chip>
 
         <v-chip
+          v-if="selectItems.length>0"
           selected-class="selected-chip"
           :filter="showSelectedIcon"
           :disabled="isReadOnly"
