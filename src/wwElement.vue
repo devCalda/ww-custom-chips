@@ -130,7 +130,7 @@ export default {
     const internalState = ref(initialValueRef.value);
     const selectItems=computed(() => extraOptions.value);//ref(['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming'])
 
-    const selectValue = computed(() => initialDropdownText.value);
+    const selectValue = computed(() => "cAtegory");
     const selectValueModel = computed({
       get() {
         return selectValue.value;
@@ -158,6 +158,8 @@ export default {
     function menuOpenedChange(isOpened) {
       if(selectValueModel.value == "Other") return;
       if(!isOpened) {
+        console.log("closed modal");
+        console.log(selectValueModel.value);
         internalStateModel.value = selectValueModel.value;
       }
     }
