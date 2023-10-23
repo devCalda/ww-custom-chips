@@ -130,7 +130,7 @@ export default {
     const internalState = ref(initialValueRef.value);
     const selectItems=computed(() => extraOptions.value);//ref(['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming'])
 
-    const selectValue = computed(() => "cAtegory");
+    const selectValue = ref({ value: 'category', label: { en: 'Category' } });
     const selectValueModel = computed({
       get() {
         return selectValue.value;
