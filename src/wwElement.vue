@@ -21,7 +21,7 @@
         </v-chip>
 
         <v-chip
-          v-if="extraOptions.length>0"
+          v-if="extraOptions && extraOptions.length>0"
           selected-class="selected-chip"
           :filter="showSelectedIcon"
           :disabled="isReadOnly"
