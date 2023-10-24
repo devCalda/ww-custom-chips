@@ -110,6 +110,8 @@ export default {
     
     const chipOptions = ref(Array.isArray(props.content.options) ? [...props.content.options] : []);
     watch(optionsRef, async (newOptions, oldOptions) => {
+        console.log("New chip options:");
+        console.log(newOptions);
         chipOptions.value = Array.isArray(newOptions) ? [...newOptions] : [];
     })
     /*watch(extraOptions, async (newOptions, oldOptions) => {
