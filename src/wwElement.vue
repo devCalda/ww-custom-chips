@@ -108,7 +108,9 @@ export default {
     })
     app.appContext.app.use(vuetify);
     
-    const chipOptions = ref(Array.isArray(props.content.options) ? [...props.content.options] : []);
+    //const chipOptions = ref(Array.isArray(props.content.options) ? [...props.content.options] : []);
+    const chipOptions = computed(() => Array.isArray(optionsRef.value) ? [...optionsRef.value] : []);
+
     watch(optionsRef, async (newOptions, oldOptions) => {
         console.log("New chip options:");
         console.log(newOptions);
