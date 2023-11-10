@@ -225,19 +225,22 @@ export default {
 #customSelect {
   border: none;
 }
+.v-chip--disabled {
+  opacity: 1 !important;
+}
 /*.v-field--variant-solo {
   box-shadow: none;
   background: none;
   //padding-inline-end: 0 !important;
 }*/
 .v-input__details {
-  display: none;
+  display: none !important;
 }
 .v-field--appended {
   padding: 0;
 }
 .v-field__append-inner {
-  display: v-bind(showDropdownIconStyleDisplay);
+  display: flex !important;
 }
 .v-field__input {
   padding-inline-start: 0;
