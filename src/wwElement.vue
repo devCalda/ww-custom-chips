@@ -68,7 +68,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    console.log("chip component setup called 3.0");
+    console.log("chip component setup called 3.0 no vuetify");
     const { 
       options: optionsRef,
       initialValue: initialValueRef,
