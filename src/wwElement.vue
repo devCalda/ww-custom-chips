@@ -1,6 +1,6 @@
 <template>
   <div class="my-element">
-    <!--<v-chip-group
+    <v-chip-group
         v-model="internalStateModel"
         column
         :multiple="isMultipleAllowed"
@@ -46,21 +46,21 @@
               </v-select>
           </div>
         </v-chip>
-      </v-chip-group>-->
+      </v-chip-group>
   </div>
 </template>
 
 <script>
 import { ref, computed, getCurrentInstance, watch, toRefs } from 'vue';
 import { customSVGs } from './customSvgs'
-/*import { VChip } from 'vuetify/components/VChip';
+import { VChip } from 'vuetify/components/VChip';
 import { VChipGroup } from 'vuetify/components/VChipGroup';
 import { VSelect } from 'vuetify/components/VSelect';
 import { createVuetify } from 'vuetify'
 import { Ripple } from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 import { mdiCheckCircleOutline } from '@mdi/js';
-import 'vuetify/styles';*/
+import 'vuetify/styles';
 
 export default {
   props: {
@@ -68,7 +68,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    console.log("chip component setup called 3.0 no vuetify");
+    console.log("chip component setup called 3.0");
     const { 
       options: optionsRef,
       initialValue: initialValueRef,
@@ -86,7 +86,7 @@ export default {
        } = toRefs(props.content);
     const app = getCurrentInstance()
 
-    /*const vuetify = createVuetify({
+    const vuetify = createVuetify({
       components: {
         VChipGroup,
         VChip,
@@ -107,7 +107,7 @@ export default {
         },
       },
     })
-    app.appContext.app.use(vuetify);*/
+    app.appContext.app.use(vuetify);
     
     //const chipOptions = ref(Array.isArray(props.content.options) ? [...props.content.options] : []);
     const chipOptions = computed(() => Array.isArray(optionsRef.value) ? [...optionsRef.value] : []);
