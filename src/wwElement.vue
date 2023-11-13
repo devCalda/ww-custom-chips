@@ -68,7 +68,7 @@ export default {
   },
   emits: ['trigger-event'],
   setup(props, { emit }) {
-    console.log("chip component setup called");
+    console.log("chip component setup called 3.0");
     const { 
       options: optionsRef,
       initialValue: initialValueRef,
